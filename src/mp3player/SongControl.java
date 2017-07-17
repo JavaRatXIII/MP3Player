@@ -12,8 +12,8 @@ import javazoom.jl.decoder.*;
 public class SongControl implements SongInterface{
     FileInputStream _fis;
     BufferedInputStream _bis;
-    String _path;
-    boolean _paused = true;
+    private String _path;
+    private boolean _paused = true;
     
     public Player PPlayer;
     public long PausePosition;
@@ -23,11 +23,11 @@ public class SongControl implements SongInterface{
     public void New_Song()
     {
         Stop();
-        JFileChooser filechooser = new JFileChooser();
+        /*JFileChooser filechooser = new JFileChooser();
         int result = filechooser.showOpenDialog(null);
         File file = filechooser.getSelectedFile();
-        _path = file.getAbsolutePath();
-        //_path = "C:\\Users\\Jun\\Music\\Fullmetal_alchemist_ending_1.mp3";
+        _path = file.getAbsolutePath();*/
+        _path = "C:\\Users\\Jun\\Music\\Fullmetal_alchemist_ending_1.mp3";
         
         _paused = false;
         Resume();
