@@ -22,9 +22,9 @@ public class MP3Player {
         
         while(!(input.equals("exit")))
         {
-            if(input.equals("new"))
+            if(input.equals("play"))
             {
-                song.New_Song();
+                song.Play();
                 paused = false;
             }
             else if(input.equals("stop"))

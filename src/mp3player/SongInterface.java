@@ -10,7 +10,7 @@ package mp3player;
  * @author Jun
  */
 public interface SongInterface {
-    public void New_Song();
+    public void Play();
     
     public void Stop();
     

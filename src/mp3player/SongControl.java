@@ -20,7 +20,7 @@ public class SongControl implements SongInterface{
     public long SongLength;
     
     @Override
-    public void New_Song()
+    public void Play()
     {
         Stop();
         /*JFileChooser filechooser = new JFileChooser();
