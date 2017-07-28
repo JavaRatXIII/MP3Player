@@ -10,6 +10,7 @@ public class MP3Player {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
         SongInterface song = new SongControl();

@@ -1,8 +1,13 @@
 package mp3player;
 
-import javax.swing.*;
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.*;
+import returnmp3s.*;
+import Console.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javazoom.jl.player.*;
 import javazoom.jl.decoder.*;
 /**
@@ -10,24 +15,52 @@ import javazoom.jl.decoder.*;
  * @author Jun
  */
 public class SongControl implements SongInterface{
-    FileInputStream _fis;
-    BufferedInputStream _bis;
+    private FileInputStream _fis;
+    private BufferedInputStream _bis;
     private String _path;
     private boolean _paused = true;
     
-    public Player PPlayer;
-    public long PausePosition;
-    public long SongLength;
+    private final IConsole _console;
+    private final IReturnMP3s _returnSongList;
+    private final ArrayList<String> _songList;
+    
+    private Player _songPlayer;
+    private long _pausePosition;
+    private long _songLength;
+    
+    public SongControl()
+    {
+        super();
+        _console = new Console();
+        _returnSongList = new ReturnMP3s();
+        _songList = _returnSongList.getAllFiles();
+    }
     
     @Override
     public void Play()
     {
         Stop();
-        /*JFileChooser filechooser = new JFileChooser();
-        int result = filechooser.showOpenDialog(null);
-        File file = filechooser.getSelectedFile();
-        _path = file.getAbsolutePath();*/
-        _path = "C:\\Users\\Jun\\Music\\Fullmetal_alchemist_ending_1.mp3";
+        int songNumber = 0;
+        _console.WriteLine("Here is a list of your songs");
+        for(int i = 0; i < _songList.size(); i++)
+        {
+            _console.WriteLine(i+". "+_songList.get(i));
+        }
+        _console.WriteLine("Select the number of the song you wish to play");
+        while(true)
+        {
+            try 
+            {
+                songNumber = Integer.parseInt(_console.ReadLine());
+                break;
+            } 
+            catch (IOException ex) 
+            {
+                _console.WriteLine(ex.getMessage());
+                _console.WriteLine("Select the number of the song you wish to play");
+            }
+        }
+        _path = "C:\\Users\\Jun\\Music\\"+_songList.get(songNumber);
         
         _paused = false;
         Resume();
@@ -36,11 +69,11 @@ public class SongControl implements SongInterface{
     @Override
     public void Stop()
     {
-        if(PPlayer != null)
+        if(_songPlayer != null)
         {
-            PPlayer.close();
-            PausePosition = 0;
-            SongLength = 0;
+            _songPlayer.close();
+            _pausePosition = 0;
+            _songLength = 0;
         }
     }
     
@@ -50,12 +83,12 @@ public class SongControl implements SongInterface{
         try 
         {
             _paused = true;
-            PausePosition = _fis.available();
-            PPlayer.close();
+            _pausePosition = _fis.available();
+            _songPlayer.close();
         } 
         catch (IOException ex) 
         {
-            System.out.println(ex);
+            _console.WriteLine(ex.getMessage());
         }
     }
     
@@ -74,18 +107,17 @@ public class SongControl implements SongInterface{
         {
             _fis = new FileInputStream(_path);
             _bis = new BufferedInputStream(_fis);
-            PPlayer = new Player(_bis);
-            SongLength = _fis.available();
-            System.out.println(SongLength);
+            _songPlayer = new Player(_bis);
+            _songLength = _fis.available();
             
             if(_paused)
             {
-                _fis.skip(SongLength-PausePosition);
+                _fis.skip(_songLength-_pausePosition);
             }
         }
         catch (Exception ex) 
         {
-            System.out.println(ex);
+            _console.WriteLine(ex.getMessage());
         }
         new Thread()
         {
@@ -94,11 +126,11 @@ public class SongControl implements SongInterface{
             {
                 try 
                 {
-                    PPlayer.play();
+                    _songPlayer.play();
                 } 
                 catch (JavaLayerException ex) 
                 {
-                    System.out.println(ex);
+                    _console.WriteLine(ex.getMessage());
                 }
             }
         }.start();
