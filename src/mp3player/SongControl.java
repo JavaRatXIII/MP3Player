@@ -40,30 +40,36 @@ public class SongControl implements SongInterface{
     public void Play()
     {
         Stop();
-        int songNumber = 0;
+        
+        ShowSongs();
+        
+        _console.WriteLine("Select the number of the song you wish to play");
+        
+        while(true)
+        {
+            try 
+            {
+                _path = "C:\\Users\\Jun\\Music\\"+_songList.get(Integer.parseInt(_console.ReadLine()));
+                break;
+            } 
+            catch (IOException | NumberFormatException ex) 
+            {
+                _console.WriteLine(ex.getMessage());
+                _console.WriteLine("Select the NUMBER of the song you wish to play");
+            }
+        }
+        
+        _paused = false;
+        Resume();
+    }
+    
+    private void ShowSongs()
+    {
         _console.WriteLine("Here is a list of your songs");
         for(int i = 0; i < _songList.size(); i++)
         {
             _console.WriteLine(i+". "+_songList.get(i));
         }
-        _console.WriteLine("Select the number of the song you wish to play");
-        while(true)
-        {
-            try 
-            {
-                songNumber = Integer.parseInt(_console.ReadLine());
-                break;
-            } 
-            catch (IOException ex) 
-            {
-                _console.WriteLine(ex.getMessage());
-                _console.WriteLine("Select the number of the song you wish to play");
-            }
-        }
-        _path = "C:\\Users\\Jun\\Music\\"+_songList.get(songNumber);
-        
-        _paused = false;
-        Resume();
     }
     
     @Override
