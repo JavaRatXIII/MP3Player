@@ -52,10 +52,10 @@ public class SongControl implements SongInterface{
                 _path = "C:\\Users\\Jun\\Music\\"+_songList.get(Integer.parseInt(_console.ReadLine()));
                 break;
             } 
-            catch (IOException | NumberFormatException ex) 
+            catch (Exception ex) 
             {
                 _console.WriteLine(ex.getMessage());
-                _console.WriteLine("Select the NUMBER of the song you wish to play");
+                _console.WriteLine("Select the NUMBER WITHIN THE LIST of the song you wish to play");
             }
         }
         

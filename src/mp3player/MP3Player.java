@@ -17,7 +17,7 @@ public class MP3Player {
         IConsole console = new Console();
         boolean paused = false;
         
-        System.out.println("State Play, Stop, Rewind, Rsume or Exit");
+        console.WriteLine("State Play, Stop, Rewind, Rsume or Exit");
         String input = console.ReadLine();
         input = input.toLowerCase();
         
