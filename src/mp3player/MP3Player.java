@@ -26,31 +26,28 @@ public class MP3Player {
         
         while(!(input.equals("exit")))
         {
-            if(input.equals("play"))
-            {
-                song.Play();
-                paused = false;
-            }
-            else if(input.equals("stop"))
-            {
-                song.Stop();
-            }
-            else if(input.equals("rewind"))
-            {
-                song.Rewind();
-            }
-            else if(input.equals("pause"))
-            {
-                if(paused == false)
-                {
-                    song.Pause();
-                    paused = true;
-                }
-                else
-                {
-                    song.Resume();
+            switch (input) {
+                case "play":
+                    song.Play();
                     paused = false;
-                }
+                    break;
+                case "stop":
+                    song.Stop();
+                    break;
+                case "rewind":
+                    song.Rewind();
+                    break;
+                case "pause":
+                    if(paused == false)
+                    {
+                        song.Pause();
+                        paused = true;
+                    }
+                    else
+                    {
+                        song.Resume();
+                        paused = false;
+                    }   break;
             }
             input = console.ReadLine().toLowerCase();
         }
