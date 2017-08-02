@@ -8,8 +8,7 @@ import returnmp3s.*;
 import Console.*;
 import Interfaces.IConsoleFactory;
 import Interfaces.IReturnMP3sFactory;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import Interfaces.ISongListFactory;
 import javazoom.jl.player.*;
 import javazoom.jl.decoder.*;
 /**
@@ -30,12 +29,12 @@ public class SongControl implements SongInterface{
     private long _pausePosition;
     private long _songLength;
     
-    public SongControl(IReturnMP3sFactory returnMP3sFactory, IConsoleFactory consoleFactory)
+    public SongControl(IReturnMP3sFactory returnMP3sFactory, IConsoleFactory consoleFactory, ISongListFactory songListFactory)
     {
         super();
         _console = consoleFactory.GetConsole();
         _returnSongList = returnMP3sFactory.getReturnMP3s();
-        _songList = _returnSongList.getAllFiles();
+        _songList = songListFactory.getSongList();
     }
     
     @Override
@@ -44,9 +43,7 @@ public class SongControl implements SongInterface{
         Stop();
         
         ShowSongs();
-        
         _console.WriteLine("Select the number of the song you wish to play");
-        
         while(true)
         {
             try 
