@@ -16,7 +16,7 @@ public class MP3Player {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
-        SongInterface song = new SongControl(new ReturnMP3sFactory(), new ConsoleFactory(), new SongListFactory());
+        SongInterface song = new SongControl(new ConsoleFactory(), new SongListFactory());
         IConsole console = new ConsoleFactory().GetConsole();
         boolean paused = false;
         
@@ -36,6 +36,9 @@ public class MP3Player {
                     break;
                 case "rewind":
                     song.Rewind();
+                    break;
+                case "forward":
+                    song.Forward();
                     break;
                 case "pause":
                     if(paused == false)

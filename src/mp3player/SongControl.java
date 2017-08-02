@@ -22,18 +22,17 @@ public class SongControl implements SongInterface{
     private boolean _paused = true;
     
     private final IConsole _console;
-    private final IReturnMP3s _returnSongList;
     private final ArrayList<String> _songList;
+    private int songNumber;
     
     private Player _songPlayer;
     private long _pausePosition;
     private long _songLength;
     
-    public SongControl(IReturnMP3sFactory returnMP3sFactory, IConsoleFactory consoleFactory, ISongListFactory songListFactory)
+    public SongControl(IConsoleFactory consoleFactory, ISongListFactory songListFactory)
     {
         super();
         _console = consoleFactory.GetConsole();
-        _returnSongList = returnMP3sFactory.getReturnMP3s();
         _songList = songListFactory.getSongList();
     }
     
@@ -48,7 +47,8 @@ public class SongControl implements SongInterface{
         {
             try 
             {
-                _path = "C:\\Users\\Jun\\Music\\"+_songList.get(Integer.parseInt(_console.ReadLine()));
+                songNumber = Integer.parseInt(_console.ReadLine());
+                _path = "C:\\Users\\Jun\\Music\\"+_songList.get(songNumber);
                 break;
             } 
             catch (Exception ex) 
@@ -102,6 +102,15 @@ public class SongControl implements SongInterface{
     {
         Stop();
         _paused = false;
+        Resume();
+    }
+    
+    @Override
+    public void Forward()
+    {
+        Stop();
+        songNumber = songNumber + 1;
+        _path = "C:\\Users\\Jun\\Music\\"+_songList.get(songNumber);
         Resume();
     }
     

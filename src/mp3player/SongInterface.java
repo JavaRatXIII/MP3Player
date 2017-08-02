@@ -19,4 +19,6 @@ public interface SongInterface {
     public void Resume();
     
     public void Rewind();
+    
+    public void Forward();
 }
