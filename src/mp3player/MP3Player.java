@@ -1,6 +1,7 @@
 package mp3player;
 
 import Console.*;
+import Utilities.ReturnMP3sFactory;
 import java.io.IOException;
 /**
  *
@@ -13,7 +14,7 @@ public class MP3Player {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
-        SongInterface song = new SongControl();
+        SongInterface song = new SongControl(new ReturnMP3sFactory());
         IConsole console = new Console();
         boolean paused = false;
         
