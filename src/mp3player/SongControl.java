@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.*;
 import returnmp3s.*;
 import Console.*;
+import Interfaces.IConsoleFactory;
 import Interfaces.IReturnMP3sFactory;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,10 +30,10 @@ public class SongControl implements SongInterface{
     private long _pausePosition;
     private long _songLength;
     
-    public SongControl(IReturnMP3sFactory returnMP3sFactory)
+    public SongControl(IReturnMP3sFactory returnMP3sFactory, IConsoleFactory consoleFactory)
     {
         super();
-        _console = new Console();
+        _console = consoleFactory.GetConsole();
         _returnSongList = returnMP3sFactory.getReturnMP3s();
         _songList = _returnSongList.getAllFiles();
     }
