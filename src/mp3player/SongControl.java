@@ -23,7 +23,7 @@ public class SongControl implements SongInterface{
     
     private final IConsole _console;
     private final ArrayList<String> _songList;
-    private int songNumber;
+    private int _songNumber;
     
     private Player _songPlayer;
     private long _pausePosition;
@@ -47,8 +47,8 @@ public class SongControl implements SongInterface{
         {
             try 
             {
-                songNumber = Integer.parseInt(_console.ReadLine());
-                _path = "C:\\Users\\Jun\\Music\\"+_songList.get(songNumber);
+                _songNumber = Integer.parseInt(_console.ReadLine());
+                _path = "C:\\Users\\Jun\\Music\\"+_songList.get(_songNumber);
                 break;
             } 
             catch (Exception ex) 
@@ -108,9 +108,16 @@ public class SongControl implements SongInterface{
     @Override
     public void Forward()
     {
+        if(_songNumber < _songList.size()-1)
+        {
+            _songNumber = _songNumber + 1;
+        }
+        else
+        {
+            _songNumber = 0;
+        }
         Stop();
-        songNumber = songNumber + 1;
-        _path = "C:\\Users\\Jun\\Music\\"+_songList.get(songNumber);
+        _path = "C:\\Users\\Jun\\Music\\"+_songList.get(_songNumber);
         Resume();
     }
     
