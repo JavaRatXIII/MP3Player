@@ -1,9 +1,7 @@
 package mp3player;
 
 import Console.*;
-import Utilities.ConsoleFactory;
-import Utilities.ReturnMP3sFactory;
-import Utilities.SongListFactory;
+import Utilities.*;
 import java.io.IOException;
 /**
  *
