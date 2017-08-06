@@ -9,6 +9,8 @@ import Console.*;
 import Interfaces.IConsoleFactory;
 import Interfaces.IReturnMP3sFactory;
 import Interfaces.ISongListFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javazoom.jl.player.*;
 import javazoom.jl.decoder.*;
 /**
@@ -121,6 +123,15 @@ public class SongControl implements SongInterface{
         Resume();
     }
     
+    private void SongFinish()
+    {
+        while(_songPlayer.isComplete())
+        {
+            Stop();
+            Forward();   
+        }
+    }
+    
     @Override
     public void Resume()
     {
@@ -148,6 +159,7 @@ public class SongControl implements SongInterface{
                 try 
                 {
                     _songPlayer.play();
+                    SongFinish();
                 } 
                 catch (JavaLayerException ex) 
                 {
