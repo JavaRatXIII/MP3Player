@@ -45,7 +45,7 @@ public class SongControl implements SongInterface{
             try 
             {
                 _songNumber = Integer.parseInt(_console.ReadLine());
-                _path = "C:\\Users\\Jun\\Music\\"+_songList.get(_songNumber);
+                _path = "C:\\Users\\"+System.getProperty("user.name")+"\\Music\\"+_songList.get(_songNumber);
                 break;
             } 
             catch (Exception ex) 
@@ -114,7 +114,7 @@ public class SongControl implements SongInterface{
             _songNumber = 0;
         }
         Stop();
-        _path = "C:\\Users\\Jun\\Music\\"+_songList.get(_songNumber);
+        _path = "C:\\Users\\"+System.getProperty("user.name")+"\\Music\\"+_songList.get(_songNumber);
         Resume();
     }
     
